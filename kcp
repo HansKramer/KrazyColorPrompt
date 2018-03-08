@@ -1,0 +1,28 @@
+#! /bin/bash
+#
+#  \Author Hans Kramer
+#
+#  \Date   March 2018
+#
+#  \Code   Krrrrrrazy color prompt
+#
+#  \Usage  source kcp
+#
+
+function kcp() {
+    red_fg=0
+    green_fg=0
+    blue_start_fg=100
+    red_start_bg=176
+    green_start_bg=226
+    blue_bg=255
+
+    for (( i=0; i<${#1}; i++ )); do
+        (( red_bg   = $red_start_bg   + $i*(256-$red_start_bg)   / (${#1}) ))
+        (( green_bg = $green_start_bg + $i*(256-$green_start_bg) / (${#1}) ))
+        (( blue_fg  = $blue_start_fg  + $i*(256-$blue_start_fg)  / (${#1}) ))
+        printf "\001\x1b[48;2;${red_bg};${green_bg};${blue_bg}m\x1b[38;2;${red_fg};${green_fg};${blue_fg}m\002${1:$i:1}"
+    done
+}
+
+PS1='\[\033[01;32m\]$(kcp "[\u@\h \W]\$")\[\033[0m\] '
