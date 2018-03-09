@@ -8,8 +8,6 @@
 #
 #  \Usage  source kcp_gray_bg
 #
-        #(( bg = (${#1}/2 - $x)*($bg_mid-$bg_edge)/(${#1}/2) + $bg_edge ))
-	#(( fg_blue = $fg_blue_start + $i*($fg_blue_end-$fg_blue_start)/${#1} ))
 
 function kcp() {
     bg_mid=200
