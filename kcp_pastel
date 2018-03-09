@@ -12,9 +12,11 @@
 function kcp() {
 
     for (( i=0; i<${#1}; i++ )); do
-        (( fg_red   = 150 + RANDOM % 50  ))
-        (( fg_blue  = 150 + RANDOM % 50  ))
-        (( fg_green = 150 + RANDOM % 50  ))
+	(( $i % 5 )) || {
+            (( fg_red   = 150 + RANDOM % 50  ))
+            (( fg_blue  = 150 + RANDOM % 50  ))
+            (( fg_green = 150 + RANDOM % 50  ))
+        }
         printf "\001\x1b[38;2;${fg_red};${fg_green};${fg_blue}m\002${1:$i:1}"
     done
 }
