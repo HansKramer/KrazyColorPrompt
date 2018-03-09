@@ -16,7 +16,7 @@ function kcp() {
     fg_red=0
     fg_green=0
     fg_blue_mid=255
-    fg_blue_edge=0
+    fg_blue_edge=100
 
     for (( i=0; i<${#1}; i++ )); do
         (( x = ${#1}/2 - $i )) 
