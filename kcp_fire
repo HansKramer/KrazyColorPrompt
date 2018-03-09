@@ -32,7 +32,7 @@ function kcp() {
 	    (( bg_red_start  = bg_red_next ))
             (( bg_red_next   = 55 + RANDOM % 200  ))
 	}
-        (( bg_red = (($bg_red_next-$bg_red_start)/sect_len)*$offset + $bg_red_start ))
+	(( bg_red = (($bg_red_next-$bg_red_start)/(sect_len-1))*$offset + $bg_red_start ))
         printf "\001\x1b[48;2;${bg_red};0;0m\002${1:$i:1}"
     done
 
