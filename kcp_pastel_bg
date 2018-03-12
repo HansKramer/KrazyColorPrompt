@@ -1,0 +1,42 @@
+#! /bin/bash
+#
+#  \Author Hans Kramer
+#
+#  \Date   March 2018
+#
+#  \Code   Krrrrrrazy color prompt
+#
+#  \Usage  source kcp_pastel_bg
+#
+
+function kcp() {
+    printf "\001\x1b[38;2;0;0;255m\002"
+    (( bg_red_start   = 150 + RANDOM % 50  ))
+    (( bg_blue_start  = 150 + RANDOM % 50  ))
+    (( bg_green_start = 150 + RANDOM % 50  ))
+    (( bg_red_next   = 150 + RANDOM % 50  ))
+    (( bg_blue_next  = 150 + RANDOM % 50  ))
+    (( bg_green_next = 150 + RANDOM % 50  ))
+    for (( i=0; i<${#1}; i++ )); do
+	(( offset = $i % 5 ))
+	(( $i % 5 )) || {
+	    (( bg_red_start   = bg_red_next   ))
+	    (( bg_blue_start  = bg_blue_next  ))
+	    (( bg_green_start = bg_green_next ))
+            (( bg_red_next   = 150 + RANDOM % 50  ))
+            (( bg_blue_next  = 150 + RANDOM % 50  ))
+            (( bg_green_next = 150 + RANDOM % 50  ))
+	}
+	(( $i + 4 >= ${#1} )) && {
+            (( bg_red_next   = 50  ))
+            (( bg_blue_next  = 50  ))
+            (( bg_green_next = 50  ))
+        }
+	(( bg_red   = (($bg_red_next-$bg_red_start)/5)*$offset     + $bg_red_start   ))
+	(( bg_blue  = (($bg_blue_next-$bg_blue_start)/5)*$offset   + $bg_blue_start  ))
+	(( bg_green = (($bg_green_next-$bg_green_start)/5)*$offset + $bg_green_start ))
+        printf "\001\x1b[48;2;${bg_red};${bg_green};${bg_blue}m\002${1:$i:1}"
+    done
+}
+
+PS1='\[\033[01;31m\]$(kcp "[\u@\h \W]\$")\[\033[0m\] '
