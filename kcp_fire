@@ -63,7 +63,7 @@ function kcp() {
             (( bg_highlight_next   = 55 + RANDOM % 200  ))
 	}
 	(( bg_highlight = (($bg_highlight_next-$bg_highlight_start)/(sect_len-1))*$offset + $bg_highlight_start ))
-	kcp_color_print ${bg_highlight} 0 ${1:$i:1}
+	kcp_color_print ${bg_highlight} 0 "${1:$i:1}"
     done
 
     (( c = m_seg_len ))
@@ -74,7 +74,7 @@ function kcp() {
             (( bg_highlight_next   = 55 + RANDOM % 200  ))
 	}
         (( bg_highlight = (($bg_highlight_next-$bg_highlight_start)/sect_len)*$offset + $bg_highlight_start ))
-	kcp_color_print ${bg_highlight} 0 ${1:$i:1}
+	kcp_color_print ${bg_highlight} 0 "${1:$i:1}"
     done
     (( c = s_seg*sect_len ))
     for (( offset=0; c>0; i++,c--,offset++ )); do
@@ -87,14 +87,14 @@ function kcp() {
 	        (( bg_other = 35 ))
             fi
 	    (( bg_highlight = ((35-$bg_highlight_start)/(sect_len-1))*$offset + $bg_highlight_start ))
-	    kcp_color_print ${bg_highlight} ${bg_other} ${1:$i:1}
+	    kcp_color_print ${bg_highlight} ${bg_other} "${1:$i:1}"
         else
             (( $c % sect_len )) || {
 	        (( bg_highlight_start  = bg_highlight_next ))
                 (( bg_highlight_next   = 55 + RANDOM % 200  ))
 	    }
             (( bg_highlight = (($bg_highlight_next-$bg_highlight_start)/(sect_len-1))*$offset + $bg_highlight_start ))
-	    kcp_color_print ${bg_highlight} 0 ${1:$i:1}
+	    kcp_color_print ${bg_highlight} 0 "${1:$i:1}"
 	fi
     done
 
