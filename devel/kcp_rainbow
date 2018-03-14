@@ -10,6 +10,8 @@
 #
 
 
+kcp_scale=80
+
 function rainbow() {
     local i=$1
     if [ $i -lt 17 ] ; then
@@ -41,13 +43,15 @@ function rainbow() {
         (( g = -255*i/41 + 1163 ))
         b=0
     fi
+    [ $kcp_scale -ne 100 ] && {
+        (( r = r*kcp_scale/100 ))
+        (( g = g*kcp_scale/100 ))
+        (( b = b*kcp_scale/100 ))
+    }
     (( rf = 255 - r ))
     (( gf = 255 - g ))
     (( bf = 255 - b ))
-    printf "\001\x1b[38;2;$rf;$rg;${rb}m\002"
-    #(( f = -255*i/188 + 255 ))
-    #printf "\001\x1b[38;2;${f};${f};${f}m\002"
-    printf "\001\x1b[48;2;${r};${g};${b}m\002$2"
+    printf "\001\x1b[38;2;${rf};${rg};${rb}m\x1b[48;2;${r};${g};${b}m\002$2"
 }
 
 

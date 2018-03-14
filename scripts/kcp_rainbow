@@ -1,0 +1,65 @@
+#! /bin/bash
+#
+#  \Author Hans Kramer
+#
+#  \Date   March 2018
+#
+#  \Code   Krrrrrrazy color prompt
+#
+#  \Usage  source kcp_pastel
+#
+
+
+kcp_scale=80
+
+function rainbow() {
+    local i=$1
+    if [ $i -lt 17 ] ; then
+        (( r = i*-88/22 + 88 ))
+        g=0
+        (( b = i*92/17 + 163 ))
+    elif [ $i -lt 22 ] ; then
+        (( r = i*-88/22 + 88 ))
+        g=0
+        b=255
+    elif [ $i -lt 65 ] ; then
+        r=0
+        (( g = 255*i/42 - 133 ))
+        b=255
+    elif [ $i -lt 64 ] ; then
+        r=0
+        g=255
+        (( b = -255*i/41 + 653 ))
+    elif [ $i -lt 105 ] ; then
+        r=0
+        g=255
+        (( b = -255*i/41 + 653 ))
+    elif [ $i -lt 146 ] ; then
+        (( r = 255*i/41 - 652 ))
+        g=255
+        b=0
+    else
+        r=255
+        (( g = -255*i/41 + 1163 ))
+        b=0
+    fi
+    [ $kcp_scale -ne 100 ] && {
+        (( r = r*kcp_scale/100 ))
+        (( g = g*kcp_scale/100 ))
+        (( b = b*kcp_scale/100 ))
+    }
+    (( rf = 255 - r ))
+    (( gf = 255 - g ))
+    (( bf = 255 - b ))
+    printf "\001\x1b[38;2;${rf};${rg};${rb}m\x1b[48;2;${r};${g};${b}m\002$2"
+}
+
+
+function kcp() {
+    printf "\001\x1b[38;2;255;255;255m\002$2"
+    for (( i=0; i<${#1}; i++ )); do
+        rainbow $(( i*188/${#1} ))  "${1:i:1}"
+    done
+}
+
+PS1='\[\033[01;31m\]$(kcp "[\u@\h \W]\$")\[\033[0m\] '
