@@ -26,8 +26,9 @@ echo " **********  BUILD STAGE   **********"
 
 %install
 echo " **********  INSTALL STAGE   **********"
+pwd
 %{__mkdir_p} %{buildroot}/%{_libexecdir}/kcp
-%{__cp} KrazyColorPrompt/{kcp,kcp_blackbg,kcp_fire,kcp_fire_blue,kcp_gray_bg,kcp_gray_bg_2,kcp_pastel,kcp_row}  %{buildroot}/%{_libexecdir}/kcp/
+%{__cp} KrazyColorPrompt/scripts/*  %{buildroot}/%{_libexecdir}/kcp/
 
 
 %clean
