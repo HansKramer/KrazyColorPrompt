@@ -1,0 +1,21 @@
+#
+#  \Author Hans Kramer
+#
+#  \Date   March 2018
+#
+#  \Code   Krrrrrrazy color prompt
+#
+#  \Usage  source kcp_row
+#
+
+
+function kcp() {
+    local x=$2
+
+    (( fg_blue  = (($2*5) % 100) + 155 ))
+    (( fg_red   = (($2*3) % 180) + 75 ))
+    (( fg_green = (-($2*7) % 100) + 255 ))
+    printf "\001\x1b[38;2;${fg_blue};${fg_red};${fg_green}m$3 \x1b[38;2;${fg_red};${fg_green};${fg_blue}m$1\002"
+}
+
+PS1='\[\033[01;31m\]$(kcp "[\u@\h \W]\$" \# \!)\[\033[0m\] '
